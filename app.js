@@ -3,26 +3,23 @@ const app = express();
 
 app.use(express.static("public"))
 
-const fs = require("fs");
-
-const nav = fs.readFileSync("./public/components/nav.html").toString();
-const footer = fs.readFileSync("./public/components/footer.html").toString();
-
-const frontpage = fs.readFileSync("./public/pages/frontpage/frontpage.html").toString();
-const jsLearningPage = fs.readFileSync("./public/pages/js_learning/js_learning.html").toString();
-
-const finalFrontpage = nav.replace("%%DOCUMENT_TITLE%%", "NodeJS KEA22") + frontpage + footer;
-const finalJsLearningPage = nav.replace("%%DOCUMENT_TITLE%%", "Javascript I've learned") + jsLearningPage + footer;
+const pageConnector = require("./pageConnector");
 
 app.get("/", (req, res) => {
-    res.send(finalFrontpage);
+    res.send(pageConnector.finalFrontpage);
 });
 
-app.get("/js_learning", (req, res) => {
-    res.send(finalJsLearningPage);
+app.get("/js", (req, res) => {
+    res.send(pageConnector.finalJsLearningPage);
 });
 
+app.get("/node", (req, res) => {
+    res.send(pageConnector.finalNodeLearningPage);
+});
 
+app.get("/code", (req, res) => {
+    res.send(pageConnector.finalCodeSnippetPage);
+});
 
 
 
